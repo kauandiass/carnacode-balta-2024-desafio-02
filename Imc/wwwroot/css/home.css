@@ -1,0 +1,146 @@
+#title-container {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#title-area {
+    width: auto;
+    height: 40px;
+}
+
+#title {
+    color: #000000;
+    font-family: "Inter";
+    font-weight: 700;
+}
+
+#form-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-area {
+    width: 100%;
+    height: 67px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-text {
+    background: #f6f6f6;
+    width: 90%;
+    max-width: 300px;
+    height: 50px;
+    border-radius: 9px;
+    border: solid 1.5px #e8e8e8;
+    text-indent: 12px;
+}
+
+.input-text::placeholder {
+    color: #bdbdbd;
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.input-text:focus {
+    border: solid 1.5px #e8e8e8;
+    outline: none;
+}
+
+.checkbox-area {
+    width: 90%;
+    max-width: 300px;
+    height: 35px;
+    padding-bottom: 15px;
+    display: flex;
+    align-items: end;
+}
+
+#input-checkbox {
+    display: none;
+}
+
+.input-checkbox-label {
+    cursor: pointer;
+    position: relative;
+    color: #777777;
+    padding-left: 23px;
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 13px;
+    display: inline-block;
+}
+
+.input-checkbox-label::before {
+    background: #f6f6f6;
+    content: '';
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid #e8e8e8;
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    top: 1px;
+}
+
+#input-checkbox:checked + .input-checkbox-label::before {
+    background: #f6f6f6;
+}
+
+.input-checkbox-label::after {
+    content: '\2713';
+    font-size: 12px;
+    color: #dbdbdb;
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    visibility: hidden;
+}
+
+#input-checkbox:checked + .input-checkbox-label::after {
+    visibility: visible;
+}
+
+.button-area {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    cursor: pointer;
+    background: #45fefe;
+    color: #000000;
+    width: 90%;
+    max-width: 300px;
+    height: 51px;
+    border-radius: 100px;
+    border: none;
+    
+    font-family: "Inter";
+    font-weight: 700;
+    font-size: 16px;
+}
+
+
+.button-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-white {
+    background: #ffffff;
+    border: solid 4.5px #45fefe;
+}

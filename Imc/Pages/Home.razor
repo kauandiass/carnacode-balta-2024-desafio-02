@@ -1,8 +1,144 @@
 ﻿@page "/"
 
+@inject LocalStorage Storage
+
 <PageTitle>Home</PageTitle>
+
+<header id="title-container">
+    <div id="title-area">
+        <h1 id="title">Cálculo de IMC</h1>
+    </div>
+</header>
+<EditForm id="form-container" Model="Model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="input-area">
+        <input class="input-text" type="text" placeholder="Altura" @bind-value="Model.Height" >
+    </div>
+    <div class="input-area">
+        <input class="input-text" type="text" placeholder="Peso" @bind-value="Model.Weight">
+    </div>
+    <div class="input-area">
+        <input class="input-text" type="text" placeholder="Sexo" @bind-value="Model.Sex">
+    </div>
+    <div class="checkbox-area">
+        <input id="input-checkbox" type="checkbox" name="">
+        <label class="input-checkbox-label" for="input-checkbox">Eu tenho 65 anos ou mais</label>
+    </div>
+    <div class="button-area">
+        <button class="button" type="submit">
+            Calcular meu IMC
+        </button>
+    </div>
+    <div class="button-area">
+        <button class="button button-white button-border">
+            Entenda o cálculo
+        </button>
+    </div>
+</EditForm>
 
 @code
 {
     
+    public ImcCalc Model = new();
+
+    public void OnValidSubmit()
+    {
+        Console.WriteLine("Valid Submit");
+        Console.WriteLine($"Result: Height {Model.Height}, Weight {Model.Weight}, Sex {Model.Sex}");
+
+        double height = Convert.ToDouble(Model.Height);
+        double weight = Convert.ToDouble(Model.Weight);
+
+        double result = weight / (height * height);
+
+        double roundedResult = Math.Round(result, 2);
+
+        Console.WriteLine($"Imc Result: {roundedResult}");
+
+        DetermineBMIRange(roundedResult);
+    }
+
+    public void DetermineBMIRange(double imc)
+    {
+        string title = string.Empty;
+        string description = string.Empty;
+
+        if (imc < 18.5)
+        {
+            Console.WriteLine("Você está abaixo do peso.");
+            title = "Abaixo do peso";
+            description = "Você está abaixo do peso.";
+        }
+        else if ( imc >= 18.5 && imc < 25 )
+        {
+            Console.WriteLine("Seu peso está normal (faixa saudável).");
+            title = "Normal";
+            description = "Parábens seu peso está normal (faixa saudável).";
+        }
+        else if ( imc >= 25 && imc < 30 )
+        {
+            Console.WriteLine("Você está com sobrepeso.");
+            title = "Sobrepeso";
+            description = "Você está com sobrepeso, procure melhorar e se alimentar melhor.";
+        }
+        else if ( imc >= 30 && imc < 35 )
+        {
+            Console.WriteLine("Você está na faixa de obesidade moderada.");
+            title = "Obsidade moderada";
+            description = "Você está na faixa de obesidade moderada.";
+        }
+        else if ( imc >= 35 && imc < 40 )
+        {
+            Console.WriteLine("Você está na faixa de obesidade severa.");
+            title = "Obesidade severa";
+            description = "Procure uma alimentação saudável rapidamente para que sua situação não piore.";
+        }
+        else
+        {
+            Console.WriteLine("Você está na faixa de obesidade mórbida.");
+            title = "Obesidade mórbida";
+            description = "Você está na faixa de obesidade mórbida.";
+        }
+
+        Console.WriteLine("Você está com sobrepeso.");
+
+        var getCurrentData = Storage.GetItem("imc");
+
+        List<ImcData>? retrievedList = new List<ImcData>();
+
+        if ( getCurrentData == null )
+        {
+            Console.WriteLine("List: Null");
+        }
+        else
+        {
+            retrievedList = System.Text.Json.JsonSerializer.Deserialize<List<ImcData>>(getCurrentData);
+        }
+
+        retrievedList?.Add( new ImcData { Title = $"{title}", Description = $"{description}", Time = $"{DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")}" } );
+
+        string imcListString = System.Text.Json.JsonSerializer.Serialize(retrievedList);
+
+        Storage.SetItem("imc", $"{imcListString}");
+    }
+
+
+    public class ImcCalc
+    {
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Height { get; set; } = string.Empty;
+
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Weight { get; set; } = string.Empty;
+        
+        public string Sex { get; set; } = string.Empty;
+    }
+
+    public class ImcData
+    {
+        public string Title { set; get; } = string.Empty;
+        public string Description { set; get; } = string.Empty;
+        public string Time { set; get; } = string.Empty;
+    }
 }
