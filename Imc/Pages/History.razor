@@ -1,0 +1,29 @@
+﻿@page "/history"
+
+@inject LocalStorage Storage
+
+<PageTitle>History</PageTitle>
+
+<header id="page-header-container">
+    <div id="img-area">
+        <a id="block" href="/">
+            <img id="img" src="assets/icon-no-bg.png" alt="">
+        </a>
+    </div>
+    <div id="title-area">
+        <h1 id="title">Histórico</h1>
+    </div>
+</header>
+<main id="page-main-container">
+    <div id="input-search-area">
+        <input id="input-search" type="search" name="" placeholder="Pesquisar...">
+    </div>
+    <div id="content-container">
+        <CardImc></CardImc>
+    </div>
+</main>
+
+@code
+{
+
+}

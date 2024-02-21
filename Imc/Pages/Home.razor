@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@inject NavigationManager NavigationManager
 @inject LocalStorage Storage
 
 <PageTitle>Home</PageTitle>
@@ -54,8 +54,15 @@
 
         double roundedResult = Math.Round(result, 2);
 
-        Console.WriteLine($"Imc Result: {roundedResult}");
+        @* List<ImcData>? retrievedList = new List<ImcData>();
 
+        retrievedList?.Add( new ImcData { Title = $"✅Parabéns!", Description = $"Você está no peso ideal, continue mantendo este estilo!", Time = $"{DateTime.Now.ToString("dd/MM/yy") + " às " + DateTime.Now.ToString("HH:mm")}" } );
+
+        string imcListString = System.Text.Json.JsonSerializer.Serialize(retrievedList); *@
+
+        @* Console.WriteLine($"Imc Result: {roundedResult}"); *@
+
+        
         DetermineBMIRange(roundedResult);
     }
 
@@ -67,41 +74,32 @@
         if (imc < 18.5)
         {
             Console.WriteLine("Você está abaixo do peso.");
-            title = "Abaixo do peso";
+            title = "Abaixo do peso❗";
             description = "Você está abaixo do peso.";
         }
         else if ( imc >= 18.5 && imc < 25 )
         {
             Console.WriteLine("Seu peso está normal (faixa saudável).");
-            title = "Normal";
+            title = "Normal ✅";
             description = "Parábens seu peso está normal (faixa saudável).";
         }
         else if ( imc >= 25 && imc < 30 )
         {
             Console.WriteLine("Você está com sobrepeso.");
-            title = "Sobrepeso";
+            title = "Sobrepeso❗";
             description = "Você está com sobrepeso, procure melhorar e se alimentar melhor.";
         }
-        else if ( imc >= 30 && imc < 35 )
+        else 
         {
             Console.WriteLine("Você está na faixa de obesidade moderada.");
-            title = "Obsidade moderada";
+            title = "Obsidade ⛔";
             description = "Você está na faixa de obesidade moderada.";
         }
-        else if ( imc >= 35 && imc < 40 )
-        {
-            Console.WriteLine("Você está na faixa de obesidade severa.");
-            title = "Obesidade severa";
-            description = "Procure uma alimentação saudável rapidamente para que sua situação não piore.";
-        }
-        else
-        {
-            Console.WriteLine("Você está na faixa de obesidade mórbida.");
-            title = "Obesidade mórbida";
-            description = "Você está na faixa de obesidade mórbida.";
-        }
 
-        Console.WriteLine("Você está com sobrepeso.");
+        NavigationManager.NavigateTo($"/result/{title}/{description}");
+        
+
+        @* Console.WriteLine("Você está com sobrepeso.");
 
         var getCurrentData = Storage.GetItem("imc");
 
@@ -116,11 +114,11 @@
             retrievedList = System.Text.Json.JsonSerializer.Deserialize<List<ImcData>>(getCurrentData);
         }
 
-        retrievedList?.Add( new ImcData { Title = $"{title}", Description = $"{description}", Time = $"{DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")}" } );
+        retrievedList?.Add( new ImcData { Title = $"{title}", Description = $"{description}", Time = $"{DateTime.Now.ToString("dd/MM/yy") + " às " + DateTime.Now.ToString("HH:mm")}" } );
 
         string imcListString = System.Text.Json.JsonSerializer.Serialize(retrievedList);
 
-        Storage.SetItem("imc", $"{imcListString}");
+        Storage.SetItem("imc", $"{imcListString}"); *@
     }
 
 

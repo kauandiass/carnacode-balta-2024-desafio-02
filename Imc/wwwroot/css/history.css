@@ -1,0 +1,168 @@
+#page-header-container {
+    width: 100%;
+    height: 190px;
+}
+
+#img-area {
+    width: 100%;
+    height: 145px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#block {
+    background: white;
+    width: 95px;
+    height: 95px;
+    margin-top: 15px;
+    border-radius: 20px;
+    border: solid 4.5px #45fefe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#img {
+    width: 75px;
+    height: 75px;
+}
+
+#title-area {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#title {
+    width: auto;
+    height: auto;
+    font-family: "Inter";
+    font-size: 30px;
+    font-weight: 700;
+}
+
+#page-main-container {
+    width: 100%;
+    height: auto;
+}
+
+#input-search-area {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#input-search {
+    background: #f6f6f6;
+    width: 90%;
+    max-width: 320px;
+    height: 50px;
+    margin-bottom: 8px;
+    border-radius: 100px;
+    border: solid 1.5px #e8e8e8;
+    text-indent: 12px;
+}
+
+#input-search::placeholder {
+    color: #bdbdbd;
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#content-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-box {
+    width: 100%;
+    max-width: 320px;
+    height: 77px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.content-block-area {
+    width: 80px;
+    height: 77px;
+}
+
+.content-block {
+    background: #f6f6f6;
+    width: 55px;
+    height: 55px;
+    border-radius: 8px;
+}
+
+.content-info-area {
+    width: 290px;
+    height: 77px;
+}
+
+.content-title-box {
+    width: 100%;
+    height: 24px;
+    display: flex;
+}
+
+.content-title-area {
+    width: 60%;
+    height: 24px;
+}
+
+.content-title {
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.content-time-area {
+    width: 50%;
+    height: 24px;
+    display: flex;
+    justify-content: end;
+}
+
+.content-time {
+    margin-top: 4px;
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.time-recent {
+    color: #522020;
+}
+
+.time-old {
+    color: #bdbdbd;
+}
+
+.content-description-area {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    
+}
+
+.content-description {
+    margin-top: 5px;
+    font-family: "Inter";
+    font-size: 13px;
+}
+
+.separator-line {
+    background: #bdbdbd;
+    width: 100%;
+    height: 2px;
+}

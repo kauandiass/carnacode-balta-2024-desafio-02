@@ -1,0 +1,64 @@
+﻿@inject LocalStorage Storage
+
+@if (retrievedList != null)
+{
+    @foreach (var imc in retrievedList)
+    {
+        <div class="content-box">
+            <div class="content-block-area">
+                <div class="content-block">
+
+                </div>
+            </div>
+            <div class="content-info-area">
+                <div class="content-title-box">
+                    <div class="content-title-area">
+                        <label class="content-title" for="content-title-area">@imc.Title</label>
+                    </div>
+                    <div class="content-time-area">
+                        <label class="content-time time-old" for="content-time-area">@imc.Time</label>
+                    </div>
+                </div>
+                <div class="content-description-area">
+                    <p class="content-description">@imc.Description</p>
+                </div>
+                <div class="separator-line">
+
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@code
+{
+
+    ImcData Model = new();
+
+    List<ImcData>? retrievedList = new List<ImcData>();
+
+    public class ImcData
+    {
+        public string Title { set; get; } = string.Empty;
+        public string Description { set; get; } = string.Empty;
+        public string Time { set; get; } = string.Empty;
+    }
+
+    protected override void OnInitialized()
+    {
+        var getCurrentData = Storage.GetItem("imc");
+
+        if ( getCurrentData == null )
+        {
+            Console.WriteLine("List: Null");
+        }
+        else
+        {
+            retrievedList = System.Text.Json.JsonSerializer.Deserialize<List<ImcData>>(getCurrentData);
+        }
+
+        Console.WriteLine("Component Initialized");
+        Console.WriteLine("Component Initialized");
+        Console.WriteLine("Component Initialized");
+    }
+}

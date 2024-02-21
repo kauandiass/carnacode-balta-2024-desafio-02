@@ -1,0 +1,79 @@
+﻿@page "/result/{ImcTitle}/{ImcDescription}"
+
+<main id="main-container">
+    <div id="logo-area">
+        <img id="logo" src="assets/icon-no-bg.png" alt="">
+    </div>
+    <div id="main-content-box">
+        <div id="title-result-area">
+            <h1 id="title-result">@ImcTitle</h1>
+        </div>
+        <div id="description-result-area">
+            <p id="description-result">@ImcDescription</p>
+        </div>
+        <div class="button-area">
+            <button class="button @animateToDown" @onclick="RecordMeasurements" disabled="@buttonDesatived">
+                Registrar medidas
+            </button>
+        </div>
+        <div class="button-area">
+            <a class="button button-white button-border @animateToTop" href="/history">
+                Ver meu histórico
+            </a>
+        </div>
+    </div>
+</main>
+
+@code
+{
+    [Parameter]
+    public string ImcTitle { get; set; } = string.Empty;
+
+    [Parameter]
+    public string ImcDescription { get; set; } = string.Empty;
+
+    private bool buttonDesatived = false;
+
+    private string animateToTop = ""; // Variável para armazenar o estado da classe CSS
+
+    private string animateToDown = "";
+    protected override void OnParametersSet()
+    {
+        
+    }
+
+    protected void RecordMeasurements()
+    {
+        buttonDesatived = true;
+
+        animateToDown = "animate-to-down";
+        animateToTop = "animate-to-up";
+
+        var getCurrentData = Storage.GetItem("imc");
+
+        List<ImcData>? retrievedList = new List<ImcData>();
+
+        if ( getCurrentData == null )
+        {
+            Console.WriteLine("List: Null");
+        }
+        else
+        {
+            retrievedList = System.Text.Json.JsonSerializer.Deserialize<List<ImcData>>(getCurrentData);
+        }
+
+        retrievedList?.Add( new ImcData { Title = $"{ImcTitle}", Description = $"{ImcDescription}", Time = $"{DateTime.Now.ToString("dd/MM/yy") + " às " + DateTime.Now.ToString("HH:mm")}" } );
+
+        string imcListString = System.Text.Json.JsonSerializer.Serialize(retrievedList);
+
+        Storage.SetItem("imc", $"{imcListString}");
+    }
+
+    public class ImcData
+    {
+        public string Title { set; get; } = string.Empty;
+        public string Description { set; get; } = string.Empty;
+        public string Time { set; get; } = string.Empty;
+    }
+
+}
